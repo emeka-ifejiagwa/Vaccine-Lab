@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const NotFound = require("./utils/errors");
+const {PORT, getDatabaseURI} = require("./config")
 const app = express();
 
 
@@ -18,8 +19,6 @@ const notFoundtHandler = (req, res, next) => {
     return next(new NotFound())
 }
 
-
-const PORT = 3000;
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use(cors());
@@ -27,6 +26,6 @@ app.use(genericErrorHandler)
 app.use(notFoundtHandler)
 
 
-app.listen(PORT, () => {
-  console.log("🚀 Server is up...");
+app.listen(PORT || 3000, () => {
+  console.log("🚀 Server is up on PORT ...");
 });
